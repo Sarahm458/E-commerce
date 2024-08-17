@@ -4,20 +4,19 @@
 E-commerce Product Listing Page that allows users to view, filter, and sort products. This project focuses on creating reusable components, handling state, passing props, and managing lists efficiently.
 
 # Table of Contents
-Installation
-Functionalities
-Contributing
+* Installation
+* Functionalities
+* Contributing
 
 ## Installation
 To set up the project locally, follow these steps:
 Clone the repository:
 git clone https://github.com/your-username/E-commerce.git
-Navigate to the project directory:
-cd e-commerce
-Install dependencies:
-npm install
-Start the development server:
-npm start
+
+* Navigate to the project directory:
+- cd e-commerce
+- Install dependencies: npm install
+- Start the development server: npm start
 
 ## Functionalities
 1. Displaying Products
@@ -27,8 +26,8 @@ npm start
 
 ## Contributing
 Guidelines for contributing to the project:
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature).
-Commit your changes (git commit -m 'Add some feature').
-Push to the branch (git push origin feature/your-feature).
-Open a pull request.
+1. Fork the repository.
+2. Create a new branch (git checkout -b feature/your-feature).
+3. Commit your changes (git commit -m 'Add some feature').
+4. Push to the branch (git push origin feature/your-feature).
+5. Open a pull request.
