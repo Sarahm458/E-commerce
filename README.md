@@ -20,10 +20,10 @@ Start the development server:
 npm start
 
 ## Functionalities
-Displaying Products
-Filtering Products by Category
-Sorting Products by Price
-Form Handling: Add New Products with Validation
+1. Displaying Products
+2. Filtering Products by Category
+3. Sorting Products by Price
+4. Form Handling: Add New Products with Validation
 
 ## Contributing
 Guidelines for contributing to the project:
