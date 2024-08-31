@@ -10,13 +10,11 @@ import NavBar from './Components/NavBar';
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart items from local storage when the component mounts
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     setCartItems(savedCartItems);
   }, []);
 
-  // Save cart items to local storage whenever cartItems changes
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -26,26 +24,35 @@ const App = () => {
     if (existingItem) {
       console.log('Item already in cart:', existingItem);
     } else {
-      setCartItems(prevItems => [...prevItems, product]);
+      const updatedCart = [...cartItems, product];
+      setCartItems(updatedCart);
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
     }
   };
 
   const removeFromCart = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    const updatedCart = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   };
 
-
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
 
   return (
     <Router>
       <NavBar />
-      <div className="container mx-auto p-4">
-        <Routes>
-          <Route path="/" element={<ProductsPage cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />} />
-          <Route path="/cart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} />} />
-          <Route path="/checkout" element={<CheckoutForm />} />
-          <Route path="/orders" element={<OrderHistory />} />
-        </Routes>
+      <div className="flex justify-center bg-gray-50 min-h-screen">
+        <div className="w-full max-w-6xl p-4">
+          <Routes>
+            <Route path="/" element={<ProductsPage addToCart={addToCart} />} />
+            <Route path="/cart" element={<ShoppingCart cartItems={cartItems} removeFromCart={removeFromCart} />} />
+            <Route path="/checkout" element={<CheckoutForm cartItems={cartItems} clearCart={clearCart} />} />
+            <Route path="/orders" element={<OrderHistory />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

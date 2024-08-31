@@ -12,9 +12,7 @@ const NavBar = () => {
           <Link to="/cart" className="hover:text-gray-300">
             Cart
           </Link>
-          <Link to="/checkout" className="hover:text-gray-300">
-            Checkout
-          </Link>
+          
           <Link to="/orders" className="hover:text-gray-300">
             Orders
           </Link>

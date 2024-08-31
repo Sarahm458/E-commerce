@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ShoppingCart = ({ cartItems, removeFromCart }) => {
   const navigate = useNavigate();
-  
-  // Calculate the total price
-  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const [quantities, setQuantities] = useState(
+    cartItems.reduce((acc, item) => {
+      acc[item.id] = 1;
+      return acc;
+    }, {})
+  );
+
+  const handleQuantityChange = (id, delta) => {
+    setQuantities(prevQuantities => {
+      const newQuantities = { ...prevQuantities, [id]: prevQuantities[id] + delta };
+      if (newQuantities[id] <= 0) {
+        removeFromCart(id);
+        delete newQuantities[id];
+      }
+      return newQuantities;
+    });
+  };
+
+  const total = cartItems.reduce((acc, item) => acc + item.price * (quantities[item.id] || 1), 0);
 
   const handleCheckout = () => {
     navigate('/checkout');
@@ -27,7 +43,22 @@ const ShoppingCart = ({ cartItems, removeFromCart }) => {
               />
               <div className="flex-1">
                 <p className="font-medium">{item.title}</p>
-                <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                <p className="text-gray-600">${(item.price * (quantities[item.id] || 1)).toFixed(2)}</p>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => handleQuantityChange(item.id, -1)}
+                    className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                  >
+                    -
+                  </button>
+                  <span className="mx-2">{quantities[item.id] || 1}</span>
+                  <button
+                    onClick={() => handleQuantityChange(item.id, 1)}
+                    className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               <button
                 onClick={() => removeFromCart(item.id)}

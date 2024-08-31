@@ -4,7 +4,6 @@ const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // Fetch order data from local storage
     const storedOrders = JSON.parse(localStorage.getItem('orders')) || [];
     setOrders(storedOrders);
   }, []);
@@ -40,7 +39,7 @@ const OrderHistory = () => {
               <p className="font-semibold">Shipping Information:</p>
               <p>Name: {order.name}</p>
               <p>Address: {order.address}</p>
-              <p>Payment Method: {order.payment}</p>
+              <p>Phone Number: {order.phoneNumber}</p>
             </div>
           </div>
         ))
